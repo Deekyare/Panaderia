@@ -17,6 +17,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <!-- iconos de bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <!-- prueba -->
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Dulce pan</title>
   </head>
@@ -73,7 +80,7 @@
         <div class="b-color container-fluid">
           <div class="row contenedor-product justify-content-center p-3">
             <!-- producto pan masa madre -->
-            <div class="col-md-4 my-3 ">
+            <div class="col-md-4 my-3">
               <img class="w-100 border border-secondary" src="imagenes/pan-masa-madre.jpeg" alt="" />
             </div>
 
@@ -131,7 +138,15 @@
           <!-- boton cotización de productos -->
           <div class="row btn-comprar">
             <div class="col-12 justify-content-center align-items-center d-flex my-5">
-              <button type="button" class="btn btn-warning rounded-pill position-absolute my-5">Cotizar un pedido</button>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-warning rounded-pill position-absolute my-5 cotizar"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                Cotizar un pedido
+              </button>
             </div>
           </div>
         </div>
@@ -160,7 +175,12 @@
                 En nuestra panadería, ofrecemos una amplia variedad de productos, desde panes artesanales y bollos hasta pasteles y tartas. También
                 ofrecemos opciones para aquellos con necesidades dietéticas especiales, como pan sin gluten y sin lactosa. Nos esforzamos por
                 proporcionar un servicio amable y profesional a todos nuestros clientes, y nos enorgullece ser parte de su vida cotidiana. <br />
-                Esperamos seguir siendo su panadería de confianza durante muchos años más.
+                Esperamos seguir siendo su panadería de confianza durante muchos años más. <br /><br />
+
+                Esta landing page fue creada por Silvia y Enzo, dos alumnos del del curso "Argentina programa 4.0"; con el fin de llevar a cabo la
+                consigna del trabajo final. Ambos estamos muy conformes con el resultado; producto de nuestro compromiso, días de dedicación,
+                aprendizajes, errores, aciertos, y pruebas. Sabemos que no es una pagina perfecta, que aún hay mucho que mejorar, mucho que aprender,
+                y estamos dispuestos a seguir adelante.
               </p>
             </div>
 
@@ -183,7 +203,8 @@
           <div class="row contenedor-product justify-content-center justify-content-start p-3">
             <div class="col-md-6 m-5 p-3 d-flex">
               <div class="col-12">
-                <form onsubmit="return">
+                <!-- onsubmit="return" -->
+                <form id="contact-form">
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input name="nombre" required type="text" id="nombre" class="form-control" placeholder="Tu nombre" />
@@ -205,7 +226,7 @@
                     ></textarea>
                   </div>
                   <div class="form-group">
-                    <button class="btn-danger btn" type="submit">Enviar</button>
+                    <button id="btnEnviar" class="btn-danger btn" type="submit">Enviar</button>
                   </div>
                 </form>
               </div>
@@ -283,6 +304,86 @@
     <div class="container final">
       <div class="fin row d-flex justify-content-center">Desarrollado por Silvia Giardini</div>
     </div>
-    <link rel="js" href="main.js" />
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog d-table" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Cotizar pedido</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- MultiStep Form -->
+            <div class="container-fluid" id="grad1">
+              <div class="row justify-content-center mt-0">
+                <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 tamanio-card">
+                  <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                    <h2><strong>Cuentenos sobre su pedido</strong></h2>
+
+                    <div class="row w-600">
+                      <div class="col-md-12 mx-0">
+                        <form id="msform">
+                          <!-- progressbar -->
+                          <ul id="progressbar">
+                            <li id="personal"><strong>Datos personales</strong></li>
+                            <li id="payment"><strong>Sobre su pedido</strong></li>
+                            <li id="confirm"><strong>Finalización</strong></li>
+                          </ul>
+                          <!-- fieldsets -->
+                          <fieldset>
+                            <div class="form-card">
+                              <h2 class="fs-title">Datos personales</h2>
+                              <input type="email" name="email" placeholder="Email Id" />
+                              <input type="text" name="uname" placeholder="Nombre y apellido" />
+                            </div>
+                            <input type="button" name="next" class="next action-button" value="Next Step" />
+                          </fieldset>
+                          <fieldset>
+                            <div class="form-card">
+                              <h2 class="fs-title">Ingrese las unidades de los productos</h2>
+                              <input type="text" name="fname" id="dato1" placeholder="Pan de masa madre" />
+                              <input type="text" name="lname" id="dato2" placeholder="Sandwichs de migas especiales" />
+                              <input type="text" name="phno" id="dato3" placeholder="Sandwichs de migas comunes" />
+                              <input type="text" name="phno_2" id="dato4" placeholder="Facturas surtidad por docenas" />
+                            </div>
+                            <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="Next Step" />
+                          </fieldset>
+                          <fieldset>
+                            <div class="form-card">
+                              <h2 class="fs-title text-center">Excelente !</h2>
+                              <br /><br />
+                              <div class="row justify-content-center">
+                                <div class="col-3">
+                                  <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image" />
+                                </div>
+                              </div>
+                              <br /><br />
+                              <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                  <h5>Usted recibirá por mail el resultado de su cotización</h5>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Descargar solicitud</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script id="base-js" src="main.js"></script>
   </body>
 </html>
