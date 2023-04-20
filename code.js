@@ -103,6 +103,8 @@ if (campoVacio) {
     // Crear un nuevo objeto jsPDF
     window.jsPDF = window.jspdf.jsPDF
     var pdf = new jsPDF(); 
+
+    pdf.setFontSize(10);
     pdf.text("Resumen de Cotización", 10, 10);
     pdf.text("Cliente: " + nombreCliente, 10, 20);
     pdf.text("Correo Electrónico: " + correoCliente, 10, 30);
@@ -118,6 +120,7 @@ if (campoVacio) {
     pdf.text("Productos Seleccionados:\n" + productosTexto, 10, 40); 
     pdf.text("Subtotal: " + subtotal, 10, 60);
     pdf.text("Total: " + total, 10, 70);
+
 
     // Genera una nueva página si el contenido excede el límite de la página actual
     if (pdf.internal.getNumberOfPages() > 1) {
